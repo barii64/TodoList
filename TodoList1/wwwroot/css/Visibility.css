@@ -1,0 +1,13 @@
+﻿.hidden {
+    display: none;
+}
+.visible {
+    display: contents;
+}
+#createInput {
+    width: -webkit-fill-available;
+    font-size: 18px;
+}
+td:nth-of-type(3){
+    text-align-last: center;
+}

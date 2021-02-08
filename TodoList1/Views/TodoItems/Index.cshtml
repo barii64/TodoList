@@ -1,0 +1,37 @@
+﻿@model MultipleModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<p>
+    <a asp-action="Create" id="CreateButton">Create New</a>
+</p>
+
+<div id="tableDiv"></div>
+<div id="todoCreateFrom">
+</div>
+
+@Html.Partial("_ToDoTable", Model)
+
+
+<form onSubmit="stopLoad(event)">
+    <button id="AddItemButton" name="button" value="first">Add</button>
+</form>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        document.getElementById("CreateBlock").classList.add("hidden")
+
+        AddItemButton.onclick = function () {
+            document.getElementById("CreateBlock").classList.add("visible")
+            document.getElementById("AddItemButton").classList.add("hidden")
+        }
+        function stopLoad(event) {
+            event.preventDefault();
+            console.log("stopped form submit");
+        }
+    </script>
+}

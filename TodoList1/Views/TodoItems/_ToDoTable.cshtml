@@ -1,0 +1,52 @@
+﻿@model MultipleModel
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.item.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.item.IsDone)
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ItemsList)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDone)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+
+        <tr id="CreateBlock">
+            @using (Html.BeginForm("Create", "TodoItems", FormMethod.Post))
+            {
+            <td><textarea id="createInput" value="Title" name="Title"></textarea></td>
+            <td><input id="IsDone" value="true" type="checkbox" name="IsDone"></td>
+            <td>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </td>
+
+            }
+        </tr>
+
+
+    </tbody>
+</table>
+
+
+
+
