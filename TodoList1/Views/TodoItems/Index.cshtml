@@ -1,5 +1,4 @@
-﻿@model MultipleModel
-
+﻿@model IEnumerable<TodoList1.Models.TodoItem>
 @{
     ViewData["Title"] = "Index";
 }
@@ -23,15 +22,58 @@
 
 @section Scripts{
     <script type="text/javascript">
-        document.getElementById("CreateBlock").classList.add("hidden")
 
-        AddItemButton.onclick = function () {
-            document.getElementById("CreateBlock").classList.add("visible")
-            document.getElementById("AddItemButton").classList.add("hidden")
-        }
-        function stopLoad(event) {
-            event.preventDefault();
-            console.log("stopped form submit");
-        }
+        $(document).ready(function () {
+            $('tr td:nth-child(1)').click(function () {
+                $(this).parent().find('label').hide()
+                var labelText = ($(this).text().trim())
+                document.querySelectorAll('tr td:nth-child(1)')
+                $(this).find('input[type="text"]').val(labelText)
+                $(this).find('input[type="text"]').show().focus();
+            });
+
+            $('input[type=text]').focusout(function () {
+                var dad = $(this).parent();
+                $(this).hide();
+                dad.find('label').html($(this).val());
+                dad.find('label').show();
+
+                console.log(dad.find('label').val($(this).val()))
+
+                console.log(($(this).val()))
+            });
+            $('input[type=text]').keyup(function (event) {
+                if (event.keyCode == 13) {
+                    var dad = $(this).parent();
+                    $(this).hide();
+                    dad.find('label').html($(this).val());
+                    dad.find('label').show();
+                }
+            });
+            $('input[type=checkbox]:checked').click(function () {
+                var edit = $($(this)).parent().parent().children()[2].children[0].href;// знаходить Edit посилання
+
+                let data = {
+                    id: "6",
+                    Title: "When Harry Met Sally",
+                    isDone: "false"
+                };
+
+                fetch("TodoItems/Edit/6", {
+                    method: "POST",
+                    body: JSON.stringify(data)
+                }).then(res => {
+                    console.log("Request complete! response:", res);
+                });
+                
+                //window.location.href = edit;
+
+                //document.getElementById("isDone").value = "false";
+                //$('input.btn.btn-primary')[0].click();
+            }
+            );
+        });
     </script>
+
+    <script src="~/js/BuildTable.js" asp-append-version="true"></script>
 }

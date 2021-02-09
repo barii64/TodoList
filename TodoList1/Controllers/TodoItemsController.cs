@@ -23,12 +23,7 @@ namespace TodoList1.Controllers
         // GET: TodoItems
         public async Task<IActionResult> Index()
         {
-            var model = new MultipleModel();
-
-            model.ItemsList = await _context.TodoList.ToListAsync();
-            
-            
-            return View(model);
+            return View(await _context.TodoList.ToListAsync()); ;
         }
 
         // GET: TodoItems/Details/5
@@ -54,13 +49,6 @@ namespace TodoList1.Controllers
         {
             return View();
         }
-        public IActionResult check(string button)
-        {
-            if (button == "first")
-                TempData["buttonval"] = "Create Button Clicked";
-
-            return RedirectToAction("Index");
-        }
 
         // POST: TodoItems/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -77,7 +65,7 @@ namespace TodoList1.Controllers
             return View(todoItem);
         }
 
-        // GET: TodoItems/Edit/5
+        //GET: TodoItems/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

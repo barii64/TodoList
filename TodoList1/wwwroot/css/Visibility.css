@@ -11,3 +11,14 @@
 td:nth-of-type(3){
     text-align-last: center;
 }
+tr[bgcolor="green"]{
+    color: white;
+}
+.edit-input{
+    display:none;
+}
+input[type=text] {
+    width: -webkit-fill-available;
+    background-color: olivedrab;
+    color: white;
+}
