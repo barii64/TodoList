@@ -11,7 +11,7 @@ namespace TodoList1.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-
+        [Display(Name = "Done")]
         public bool IsDone { get; set; }
     }
 

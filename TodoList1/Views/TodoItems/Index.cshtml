@@ -3,77 +3,14 @@
     ViewData["Title"] = "Index";
 }
 
-
-<p>
-    <a asp-action="Create" id="CreateButton">Create New</a>
-</p>
-
-<div id="tableDiv"></div>
-<div id="todoCreateFrom">
-</div>
+<form onSubmit="stopLoad(event)">
+    <input id="AddItemButton" value="Add" class="btn btn-primary">
+</form>
 
 @Html.Partial("_ToDoTable", Model)
 
 
-<form onSubmit="stopLoad(event)">
-    <button id="AddItemButton" name="button" value="first">Add</button>
-</form>
-
-
 @section Scripts{
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            $('tr td:nth-child(1)').click(function () {
-                $(this).parent().find('label').hide()
-                var labelText = ($(this).text().trim())
-                document.querySelectorAll('tr td:nth-child(1)')
-                $(this).find('input[type="text"]').val(labelText)
-                $(this).find('input[type="text"]').show().focus();
-            });
-
-            $('input[type=text]').focusout(function () {
-                var dad = $(this).parent();
-                $(this).hide();
-                dad.find('label').html($(this).val());
-                dad.find('label').show();
-
-                console.log(dad.find('label').val($(this).val()))
-
-                console.log(($(this).val()))
-            });
-            $('input[type=text]').keyup(function (event) {
-                if (event.keyCode == 13) {
-                    var dad = $(this).parent();
-                    $(this).hide();
-                    dad.find('label').html($(this).val());
-                    dad.find('label').show();
-                }
-            });
-            $('input[type=checkbox]:checked').click(function () {
-                var edit = $($(this)).parent().parent().children()[2].children[0].href;// знаходить Edit посилання
-
-                let data = {
-                    id: "6",
-                    Title: "When Harry Met Sally",
-                    isDone: "false"
-                };
-
-                fetch("TodoItems/Edit/6", {
-                    method: "POST",
-                    body: JSON.stringify(data)
-                }).then(res => {
-                    console.log("Request complete! response:", res);
-                });
-                
-                //window.location.href = edit;
-
-                //document.getElementById("isDone").value = "false";
-                //$('input.btn.btn-primary')[0].click();
-            }
-            );
-        });
-    </script>
-
     <script src="~/js/BuildTable.js" asp-append-version="true"></script>
+    <script src="~/js/Edit.js" asp-append-version="true"></script>
 }

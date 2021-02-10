@@ -2,17 +2,16 @@
 
 
 AddItemButton.onclick = function () {
-    document.getElementById("CreateBlock").classList.add("visible")
+    document.getElementById("CreateBlock").classList.toggle("visible")
     document.getElementById("AddItemButton").classList.add("hidden")
+}
+cancelButton.onclick = function () {
+    document.getElementById("CreateBlock").classList.toggle("visible")
+    document.getElementById("AddItemButton").classList.toggle("hidden")
 }
 function stopLoad(event) {
     event.preventDefault();
-    console.log("stopped form submit");
 }
-
-$('table.colorchange input[type=checkbox]').click(function () {
-    $(this).closest('tr').toggleClass("highlight", this.checked);
-});
 
 var CheckBoxs = document.getElementsByTagName("input");
 

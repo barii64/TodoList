@@ -16,11 +16,23 @@
     </thead>
     <tbody>
         @{
-            var listNotDone = new List<TodoList1.Models.TodoItem>();
+            var listDone = new List<TodoList1.Models.TodoItem>();
         }
+        <tr id="CreateBlock">
+            @using (Html.BeginForm("Create", "TodoItems", FormMethod.Post))
+            {
+                <td><textarea id="createInput" value="Title" name="Title"></textarea></td>
+                <td><input id="IsDone" value="true" type="checkbox" name="IsDone"></td>
+                <td>
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    <input id="cancelButton" type="button" value="Сancel" class="btn btn-danger" />
+                </td>
+
+            }
+        </tr>
         @foreach (var item in Model)
         {
-            @if (item.IsDone == true)
+            @if (item.IsDone != true)
             {
                 <tr>
                     <td>
@@ -42,14 +54,17 @@
             }
             else
             {
-                listNotDone.Add(item);
+                listDone.Add(item);
             }
-        } 
-        @foreach (var item in listNotDone)
+        }
+        @foreach (var item in listDone)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    <label>
+                            @Html.DisplayFor(modelItem => item.Title)
+                    </label>
+                    <input type="text" class="edit-input" />
                 </td>
                 <td>
                     @Html.CheckBoxFor(modelItem => item.IsDone)
@@ -62,18 +77,6 @@
                 </td>
             </tr>
         }
-
-        <tr id="CreateBlock">
-            @using (Html.BeginForm("Create", "TodoItems", FormMethod.Post))
-            {
-                <td><textarea id="createInput" value="Title" name="Title"></textarea></td>
-                <td><input id="IsDone" value="true" type="checkbox" name="IsDone"></td>
-                <td>
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </td>
-
-            }
-        </tr>
     </tbody>
 </table>
 
