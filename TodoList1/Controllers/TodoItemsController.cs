@@ -23,7 +23,7 @@ namespace TodoList1.Controllers
         // GET: TodoItems
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TodoList.ToListAsync()); ;
+            return View(await _context.TodoList.OrderBy(t => t.IsDone).ToListAsync()); ;
         }
 
         // GET: TodoItems/Details/5
