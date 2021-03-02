@@ -13,7 +13,7 @@ function stopLoad(event) {
     event.preventDefault();
 }
 
-var CheckBoxs = document.getElementsByTagName("input");
+var CheckBoxs = document.querySelectorAll('input[type="checkbox"]');
 
 for (let val of CheckBoxs) {
     if (val.checked == true)

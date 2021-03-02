@@ -9,6 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.ClearScript.V8;
+using JavaScriptEngineSwitcher.V8;
+using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
+using React.AspNet;
+
 using TodoList1.Data;
 
 namespace TodoList1
@@ -30,6 +36,17 @@ namespace TodoList1
             services.AddDbContext<MvcTodoContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MvcTodoContext")));
 
+            services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddReact();
+
+            // Make sure a JS engine is registered, or you will get an error!
+            services.AddJsEngineSwitcher(options => options.DefaultEngineName = V8JsEngine.EngineName)
+              .AddV8();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +63,12 @@ namespace TodoList1
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            app.UseReact(config =>
+            {
+
+            });
+
             app.UseStaticFiles();
 
             app.UseRouting();

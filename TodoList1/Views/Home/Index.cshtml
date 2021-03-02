@@ -1,7 +1,15 @@
 ﻿@model IEnumerable<TodoList1.Models.TodoItem>
- 
+
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<h1 class="display-4">To do List</h1>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.8.0/umd/react.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.0/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+<script type="module" src="@Url.Content("~/js/App.jsx")"></script>
+@*<script src="@Url.Content("~/js/AddButton.jsx")"></script>
+<script src="@Url.Content("~/js/ToDoList.jsx")"></script>*@
+
+

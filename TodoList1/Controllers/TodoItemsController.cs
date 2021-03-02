@@ -21,9 +21,15 @@ namespace TodoList1.Controllers
         }
 
         // GET: TodoItems
+        //[Route("[controller]/get")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.TodoList.OrderBy(t => t.IsDone).ToListAsync()); ;
+        }
+        [HttpGet]
+        public async Task<JsonResult> Get()
+        {
+            return new JsonResult(await _context.TodoList.OrderBy(t => t.IsDone).ToListAsync());
         }
 
         // GET: TodoItems/Details/5

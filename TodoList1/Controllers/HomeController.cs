@@ -20,8 +20,8 @@ namespace TodoList1.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Index", "TodoItems");
-            //return View();
+            //return RedirectToAction("Index", "TodoItems");
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
