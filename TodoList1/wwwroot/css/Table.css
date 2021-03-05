@@ -29,3 +29,7 @@
     background-color: green;
     color: white;
 }
+
+.tbody > div:first-of-type {
+    display: contents;
+}

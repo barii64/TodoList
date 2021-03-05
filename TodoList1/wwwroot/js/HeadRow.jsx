@@ -1,4 +1,5 @@
-﻿class HeadRow extends React.Component {
+﻿import AddButton from './AddButton.jsx';
+class HeadRow extends React.Component {
     render() {
         return (
             <div className = "thead">
@@ -7,7 +8,11 @@
                             Title
                         </div>
                         <div className="td">
-                            Done
+                        Done
+                        </div>
+                        <div className="td">
+                            <div></div>
+                            <AddButton />
                         </div>
                 </div>
             </div>
