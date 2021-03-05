@@ -17,5 +17,5 @@ var CheckBoxs = document.querySelectorAll('input[type="checkbox"]');
 
 for (let val of CheckBoxs) {
     if (val.checked == true)
-        val.parentElement.parentElement.bgColor = "green"
+        val.parentElement.parentElement.classList += "green"
 }

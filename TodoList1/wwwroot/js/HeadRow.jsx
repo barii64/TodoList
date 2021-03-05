@@ -1,18 +1,17 @@
 ﻿class HeadRow extends React.Component {
     render() {
         return (
-            <thead>
-            <tr>
-                <th>
-                        Title
-                </th>
-                    <th>
-                        Done
-                </th>
-                    <th></th>
-            </tr>
-            </thead>
-        )
+            <div className = "thead">
+                <div className="tr">
+                        <div className="td">
+                            Title
+                        </div>
+                        <div className="td">
+                            Done
+                        </div>
+                </div>
+            </div>
+        );
     }
 }
 

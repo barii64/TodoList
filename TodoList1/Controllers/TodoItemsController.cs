@@ -66,7 +66,7 @@ namespace TodoList1.Controllers
             {
                 _context.Add(todoItem);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(todoItem);
         }
@@ -91,7 +91,6 @@ namespace TodoList1.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,IsDone")] TodoItem todoItem)
         {
             if (id != todoItem.Id)
@@ -99,6 +98,31 @@ namespace TodoList1.Controllers
                 return NotFound();
             }
 
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(todoItem);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TodoItemExists(todoItem.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(todoItem);
+        }
+        public async Task<IActionResult> EditJson([FromBody] TodoItem todoItem)
+        {
+            Console.WriteLine("asdasd");
             if (ModelState.IsValid)
             {
                 try
@@ -142,7 +166,6 @@ namespace TodoList1.Controllers
 
         // POST: TodoItems/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var todoItem = await _context.TodoList.FindAsync(id);

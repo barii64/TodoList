@@ -9,6 +9,7 @@ class App extends React.Component {
                 <ToDoTable/>
             </div>
         )
+
     }
-}
+    }
 ReactDOM.render(<App />, document.getElementById('root'));

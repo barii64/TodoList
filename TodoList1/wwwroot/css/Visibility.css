@@ -17,8 +17,8 @@ tr[bgcolor="green"]{
     tr[bgcolor="green"] a {
         color: cyan;
     }
-.edit-input{
-    display:none;
+.edit-input, .labelId {
+    display: none;
 }
 input[type=text] {
     width: -webkit-fill-available;

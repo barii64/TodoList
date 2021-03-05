@@ -6,6 +6,13 @@
         $(this).find('input[type="text"]').val(labelText)
         $(this).find('input[type="text"]').show().focus();
     });
+    $('.tr .td:nth-child(1)').click(function () {
+        $(this).parent().find('label').hide()
+        var labelText = ($(this).text().trim())
+        document.querySelectorAll('tr td:nth-child(1)')
+        $(this).find('input[type="text"]').val(labelText)
+        $(this).find('input[type="text"]').show().focus();
+    });
 
     $('input[type=text]').focusout(function () {
         var dad = $(this).parent();

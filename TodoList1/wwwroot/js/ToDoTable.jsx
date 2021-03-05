@@ -4,10 +4,10 @@ import BodyTable from './BodyTable.jsx';
 class ToDoTable extends React.Component {
     render() {
         return (
-            <table className="table">
+            <div className = "table">
                 <HeadRow />
                 <BodyTable/>
-            </table>
+            </div>
         )
     }
 }

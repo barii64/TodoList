@@ -10,7 +10,8 @@
     render() {
         return (
             <form onSubmit="stopLoad(event)">
-                <input id="AddItemButton" type="button" value="Add" className="btn btn-primary" onClick={() => { this.showCreateBlock(); }}  />
+                <input id="AddItemButton" type="input" value="Add"
+                    className="btn btn-primary" onClick={() => { this.showCreateBlock(); }} />
             </form>
         )
     }

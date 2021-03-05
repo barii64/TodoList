@@ -2,14 +2,16 @@
 import TableItems from './TableItems.jsx';
 
 class BodyTable extends React.Component {
-    render() {
-        return (
-            <tbody>
-                 <CreateBlock />
-                <TableItems />
-            </tbody>
-        )
+        render() {
+            return (
+                <div className="tbody">
+                    <CreateBlock />
+                    <TableItems />
+                </div>
+            )
     }
-} 
+   
+ }
+
 
 export default BodyTable;
