@@ -24,6 +24,7 @@ class CreateBlock extends React.Component {
         if (!this.state.hidden) {
             return (
                 <>
+                <form className="tr" id="CreateBlock" action="/ToDoItems/Create" method="post">
                     <div className="td">
                         <textarea id="createInput" name="Title" />
                     </div>
@@ -31,7 +32,8 @@ class CreateBlock extends React.Component {
                     <div className="td">
                         <input type="submit" value="Create" className="btn btn-success" />
                         <input id="cancelButton" type="button" value="Сancel" className="btn btn-danger" onClick={() => { this.toggle(); }} />
-                    </div>
+                        </div>
+                </form >
                 </>);
         }
         return ReactDOM.createPortal(<AddButton />,
