@@ -73,6 +73,24 @@ class TableItems extends React.Component {
 
             }
         }
+        function editCheckbox(element) {
+            if (element.target.parentElement.parentElement.children[1].firstChild.type == "text")
+                element.target.parentElement.parentElement.children[3].firstChild.click();
+
+            fetch("/TodoItems/EditJson", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    Id: element.target.parentElement.parentElement.firstChild.firstChild.data,
+                    Title: element.target.parentElement.parentElement.children[1].innerText,
+                    IsDone: element.target.parentElement.parentElement.children[2].firstChild.checked
+                })
+            });
+            location.reload();
+        }
         function onClick(element) {
             if (element.target.firstChild != null) {
                 var str = element.currentTarget.innerText.trim();
@@ -89,9 +107,6 @@ class TableItems extends React.Component {
                 jQuery(tr).find("BUTTON:nth-child(1)").text("save");
 
                 console.log(element.currentTarget.previousSibling.innerText);
-
-
-
             }
 
         }
@@ -110,7 +125,7 @@ class TableItems extends React.Component {
                         </div>)}
 
                     <div className="td">
-                        <input type="checkbox" checked={p.isDone} /></div>
+                        <input type="checkbox" checked={p.isDone} onClick={editCheckbox} /></div>
                     <div className="td action">
                         <button type="button" onClick=
                             {e => edit(e.target)}
