@@ -11,15 +11,7 @@ class CreateBlock extends React.Component {
         this.setState({
             hidden: !this.hidden
         });
-        //document.getElementById("CreateBlock").style.display = "none";
-        //document.getElementById("AddItemButton").style.display = "block";
-        //  this.forceUpdate();
     }
-    //componentDidMount(){
-    //        document.getElementById("CreateBlock").style.display = "none";
-    //    }
-
-    //document.getElementById("CreateBlock").style.display = "table-row";
     render() {
         if (!this.state.hidden) {
             return (
@@ -32,7 +24,7 @@ class CreateBlock extends React.Component {
                     <div className="td">
                         <input type="submit" value="Create" className="btn btn-success" />
                         <input id="cancelButton" type="button" value="Сancel" className="btn btn-danger" onClick={() => { this.toggle(); }} />
-                        </div>
+                    </div>
                 </form >
                 </>);
         }

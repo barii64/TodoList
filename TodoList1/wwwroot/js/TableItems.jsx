@@ -5,8 +5,7 @@ class TableItems extends React.Component {
         this.state = {
             ToDoListData: []
         }
-        axios.get("https://localhost:44329/TodoItems/Get").then(response => {
-            //console.log(response.data);  
+        axios.get("/TodoItems/Get").then(response => {
             this.setState({
                 ToDoListData: response.data
             });
@@ -14,30 +13,28 @@ class TableItems extends React.Component {
     };
 
     render() {
-        function deleteJson(element) {
-            fetch("/TodoItems/Delete/" + element.parentElement.parentElement.firstChild.firstChild.data, {
+        function deleteJson(id) {
+            fetch("/TodoItems/Delete/" + id, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                    Id: element.parentElement.parentElement.firstChild.firstChild.data
-                })
+                }
             });
             location.reload();
         }
-        function edit(element) {
-            var tr = jQuery(element).parent().parent();
+        function edit(todoItem) {
+            var tr = jQuery(todoItem._EditButton).parent().parent();
             if (!tr.hasClass("editing")) {
                 tr.addClass("editing");
                 tr.find("DIV.td:nth-child(even)").each(function () {
-                    if (!jQuery(this).hasClass("action")) {
+                    var $this = jQuery(this);
+                    if (!$this.hasClass("action")) {
                         var value = jQuery(this).text();
-                        jQuery(this).text("");
-                        jQuery(this).append('<input type="text" value="' + value + '" />');
+                        $this.text("");
+                        $this.append('<input type="text" value="' + value + '" />');
                     } else {
-                        jQuery(this).find("BUTTON:nth-child(1)").text("save");
+                        todoItem._EditButton.innerText = "save";
                     }
                 });
             } else {
@@ -63,9 +60,9 @@ class TableItems extends React.Component {
                                 'Content-type': 'application/json',
                             },
                             body: JSON.stringify({
-                                Id: this.parentElement.firstChild.firstChild.data,
+                                Id: todoItem.id,
                                 Title: this.parentElement.children[1].innerText,
-                                IsDone: this.parentElement.children[2].firstChild.checked
+                                IsDone: todoItem.isDone
                             })
                         });
                     }
@@ -96,7 +93,6 @@ class TableItems extends React.Component {
                 var str = element.currentTarget.innerText.trim();
                 element.currentTarget.firstChild.remove();
 
-
                 element.currentTarget.lastChild.style.display = "inline-block";
 
                 element.currentTarget.lastChild.value = str;
@@ -111,36 +107,35 @@ class TableItems extends React.Component {
 
         }
         return (
-            this.state.ToDoListData.map((p, index) => {
+            this.state.ToDoListData.map((todoItem, index) => {
+                var className = "td title" + (todoItem.isDone ? " green" : "");
                 return (<form className="tr" key={index}>
-                    <label className='labelId' >{p.id}</label>
-                    {p.isDone ?
-                        (<div className="td title green" onClick={onClick}>
-                            <label>{p.title}</label>
-                            <input type="text" className="edit-input" />
-                        </div>) :
-                        (<div className="td title" onClick={onClick}>
-                            <label>{p.title}</label>
-                            <input type="text" className="edit-input" />
-                        </div>)}
+                            <label className='labelId' >{todoItem.id}</label>
 
-                    <div className="td">
-                        <input type="checkbox" checked={p.isDone} onClick={editCheckbox} /></div>
-                    <div className="td action">
-                        <button type="button" onClick=
-                            {e => edit(e.target)}
-                        >edit</button>
-                        <button type="button" onClick={e => deleteJson(e.target)}>delete</button>
-                    </div>
-                </form>)
+                            <div className={className} onClick={onClick}>
+                                <label ref={
+                                    function (el) {
+                                        todoItem._LabelTitle = el;
+                                }}>{todoItem.title}</label>
+                                <input type="text" className="edit-input" />
+                            </div>
+
+                            <div className="td">
+                                <input type="checkbox" checked={todoItem.isDone} onClick={editCheckbox} />
+                            </div>
+
+                            <div className="td action">
+                            <button type="button" onClick=
+                                {e => edit(todoItem)}
+                                ref={
+                                function (el) {
+                                    todoItem._EditButton = el;
+                                }}>edit</button>
+                                <button type="button" onClick={e => deleteJson(todoItem.id)}>delete</button>
+                            </div>
+                        </form>)
             })
         )
-        var CheckBoxs = document.querySelectorAll('input[type="checkbox"]');
-
-        for (let val of CheckBoxs) {
-            if (val.checked == true)
-                val.parentElement.parentElement.bgColor = "green"
-        }
     }
 }
 export default TableItems;

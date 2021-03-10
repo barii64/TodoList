@@ -12,9 +12,6 @@ class AddButton extends React.Component {
         this.forceUpdate();
         //document.getElementById("AddItemButton").style.display = "none";
     };
-    handleClick = () => {
-        this.createBlockElement.current.toggle();
-    };
     render() {
         if (!this.state.hiddenButton) {
             return (
