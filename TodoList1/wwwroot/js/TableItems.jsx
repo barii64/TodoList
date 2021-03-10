@@ -1,4 +1,5 @@
-﻿
+﻿import DeleteButton from './DeleteButton.jsx';
+
 class TableItems extends React.Component {
     constructor() {
         super();
@@ -13,16 +14,7 @@ class TableItems extends React.Component {
     };
 
     render() {
-        function deleteJson(id) {
-            fetch("/TodoItems/Delete/" + id, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json',
-                }
-            });
-            location.reload();
-        }
+        
         function edit(todoItem) {
             var tr = jQuery(todoItem._EditButton).parent().parent();
             if (!tr.hasClass("editing")) {
@@ -119,24 +111,25 @@ class TableItems extends React.Component {
                                 }}>{todoItem.title}</label>
                                 <input type="text" className="edit-input" />
                             </div>
-
+                            
                             <div className="td">
                                 <input type="checkbox" checked={todoItem.isDone} onClick={editCheckbox} />
                             </div>
 
                             <div className="td action">
-                            <button type="button" onClick=
-                                {e => edit(todoItem)}
-                                ref={
-                                function (el) {
-                                    todoItem._EditButton = el;
-                                }}>edit</button>
-                                <button type="button" onClick={e => deleteJson(todoItem.id)}>delete</button>
+                                <button type="button" onClick=
+                                    {e => edit(todoItem)}
+                                    ref={
+                                    function (el) {
+                                        todoItem._EditButton = el;
+                                    }}>edit</button>
+                                <DeleteButton id={todoItem.id}/>
                             </div>
                         </form>)
             })
         )
     }
 }
+
 export default TableItems;
 
