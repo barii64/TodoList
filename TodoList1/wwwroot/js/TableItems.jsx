@@ -1,5 +1,6 @@
 ﻿import DeleteButton from './DeleteButton.jsx';
 import CheckBoxItem from './CheckBoxItem.jsx';
+import TitleInput from './TitleInput.jsx';
 
 class TableItems extends React.Component {
     constructor() {
@@ -15,7 +16,6 @@ class TableItems extends React.Component {
     };
 
     render() {
-        
         function edit(todoItem) {
             var tr = jQuery(todoItem._EditButton).parent().parent();
             if (!tr.hasClass("editing")) {
@@ -63,37 +63,15 @@ class TableItems extends React.Component {
                 });
             }
         }
-        function onClick(element) {
-            if (element.target.firstChild != null) {
-                var str = element.currentTarget.innerText.trim();
-                element.currentTarget.firstChild.remove();
-
-                element.currentTarget.lastChild.style.display = "inline-block";
-
-                element.currentTarget.lastChild.value = str;
-
-
-                var tr = element.currentTarget.parentElement;
-                tr.classList += (" editing");
-                jQuery(tr).find("BUTTON:nth-child(1)").text("save");
-
-                console.log(element.currentTarget.previousSibling.innerText);
-            }
-
-        }
+        
         return (
             this.state.ToDoListData.map((todoItem, index) => {
-                var className = "td title" + (todoItem.isDone ? " green" : "");
+                
                 return (<form className="tr" key={index}>
                             <label className='labelId' >{todoItem.id}</label>
 
-                            <div className={className} onClick={onClick}>
-                                <label ref={
-                                    function (el) {
-                                        todoItem._LabelTitle = el;
-                                }}>{todoItem.title}</label>
-                                <input type="text" className="edit-input" />
-                            </div>
+                            <TitleInput todoItem={todoItem} />
+
                             
                             <div className="td">
                                 <CheckBoxItem todoItem={todoItem}/>
