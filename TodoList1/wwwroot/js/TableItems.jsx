@@ -1,4 +1,5 @@
 ﻿import DeleteButton from './DeleteButton.jsx';
+import CheckBoxItem from './CheckBoxItem.jsx';
 
 class TableItems extends React.Component {
     constructor() {
@@ -52,33 +53,15 @@ class TableItems extends React.Component {
                                 'Content-type': 'application/json',
                             },
                             body: JSON.stringify({
-                                Id: todoItem.id,
+                                Id: this.parentElement.firstChild.firstChild.data,
                                 Title: this.parentElement.children[1].innerText,
                                 IsDone: todoItem.isDone
                             })
                         });
+                        location.reload();
                     }
                 });
-
             }
-        }
-        function editCheckbox(element) {
-            if (element.target.parentElement.parentElement.children[1].firstChild.type == "text")
-                element.target.parentElement.parentElement.children[3].firstChild.click();
-
-            fetch("/TodoItems/EditJson", {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                    Id: element.target.parentElement.parentElement.firstChild.firstChild.data,
-                    Title: element.target.parentElement.parentElement.children[1].innerText,
-                    IsDone: element.target.parentElement.parentElement.children[2].firstChild.checked
-                })
-            });
-            location.reload();
         }
         function onClick(element) {
             if (element.target.firstChild != null) {
@@ -113,7 +96,7 @@ class TableItems extends React.Component {
                             </div>
                             
                             <div className="td">
-                                <input type="checkbox" checked={todoItem.isDone} onClick={editCheckbox} />
+                                <CheckBoxItem todoItem={todoItem}/>
                             </div>
 
                             <div className="td action">
