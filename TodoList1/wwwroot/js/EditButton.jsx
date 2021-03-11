@@ -42,7 +42,7 @@
                                 IsDone: todoItem.isDone
                             })
                         });
-                        location.reload();
+                        /*location.reload();*/
                     }
                 });
             }

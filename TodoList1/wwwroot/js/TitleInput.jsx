@@ -6,7 +6,7 @@
         this.state = {
             className: "td title" + str
         };
-    } 
+    }
     onClick(element) {
         if (element.target.firstChild != null) {
             var str = element.currentTarget.innerText.trim();

@@ -9,14 +9,25 @@ class TableItems extends React.Component {
         this.state = {
             ToDoListData: []
         }
+    };
+    componentDidMount() {
         axios.get("/TodoItems/Get").then(response => {
             this.setState({
                 ToDoListData: response.data
             });
         });
+    }
+
+    handleDelete = itemId => {
+        const ToDoListData = this.state.ToDoListData.filter(item => item.id !== itemId);
+        console.log(this.state.ToDoListData);
+        this.setState({ ToDoListData: ToDoListData });
     };
 
-    render() {        
+    render() {      
+        function deleteJson(id) {
+            
+        }
         return (
             this.state.ToDoListData.map((todoItem, index) => {
                 
@@ -31,7 +42,7 @@ class TableItems extends React.Component {
 
                             <div className="td action">
                                 <EditButton todoItem={todoItem}/>
-                                <DeleteButton id={todoItem.id}/>
+                                <DeleteButton id={todoItem.id} onDelete={this.handleDelete} />
                             </div>
                         </form>)
             })
