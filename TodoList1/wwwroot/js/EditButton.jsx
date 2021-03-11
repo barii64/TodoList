@@ -1,7 +1,7 @@
 ﻿class EditButton extends React.Component {
     render() {
         function edit(todoItem) {
-            var tr = jQuery(todoItem._EditButton).parent().parent();
+            var tr = jQuery(editButton).parent().parent();
             if (!tr.hasClass("editing")) {
                 tr.addClass("editing");
                 tr.find("DIV.td:nth-child(even)").each(function () {
@@ -11,7 +11,7 @@
                         $this.text("");
                         $this.append('<input type="text" value="' + value + '" />');
                     } else {
-                        todoItem._EditButton.innerText = "save";
+                        editButton.innerText = "save";
                     }
                 });
             } else {
@@ -47,13 +47,18 @@
                 });
             }
         }
+        var editButton;
         return (
             <button type="button" onClick=
-                {e => edit(todoItem)}
+                {e => edit(this.props.todoItem)}
+
                 ref={
-                    function (editButton) {
-                        todoItem._EditButton = editButton;
-                    }}>edit</button>
+                    function (el) {
+                        editButton= el;
+                    }
+                }
+
+            >edit</button>
         )
     }
 }

@@ -1,6 +1,7 @@
 ﻿import DeleteButton from './DeleteButton.jsx';
 import CheckBoxItem from './CheckBoxItem.jsx';
 import TitleInput from './TitleInput.jsx';
+import EditButton from './EditButton.jsx';
 
 class TableItems extends React.Component {
     constructor() {
@@ -29,7 +30,7 @@ class TableItems extends React.Component {
                             </div>
 
                             <div className="td action">
-                                <EditButton/>
+                                <EditButton todoItem={todoItem}/>
                                 <DeleteButton id={todoItem.id}/>
                             </div>
                         </form>)
