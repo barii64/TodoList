@@ -1,7 +1,4 @@
-﻿
-
-
-class TitleInput extends React.Component {
+﻿class TitleInput extends React.Component {
     constructor(props) {
         super(props);
         var str = this.props.todoItem.isDone ? " green" : "";
