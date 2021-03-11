@@ -9,6 +9,11 @@ class TableItems extends React.Component {
         this.state = {
             ToDoListData: []
         }
+        axios.get("/TodoItems/Get").then(response => {
+            this.setState({
+                ToDoListData: response.data
+            });
+        });
     };
     componentDidMount() {
         axios.get("/TodoItems/Get").then(response => {
@@ -20,8 +25,20 @@ class TableItems extends React.Component {
 
     handleDelete = itemId => {
         const ToDoListData = this.state.ToDoListData.filter(item => item.id !== itemId);
-        console.log(this.state.ToDoListData);
         this.setState({ ToDoListData: ToDoListData });
+    };
+    handleEdit = item => {
+        const elementsIndex = this.state.ToDoListData.findIndex(element => element.id == item.id)
+
+        var newItem = item;
+        newItem.isDone = !newItem.isDone;
+
+        var toDoListData = this.state.ToDoListData;
+
+        toDoListData[elementsIndex] = newItem;
+
+        this.setState({ ToDoListData: toDoListData, });
+         this.forceUpdate();
     };
 
     render() {      
@@ -37,7 +54,7 @@ class TableItems extends React.Component {
                             <TitleInput todoItem={todoItem} />
 
                             <div className="td">
-                                <CheckBoxItem todoItem={todoItem}/>
+                                <CheckBoxItem todoItem={todoItem} onChangeCheckBox={this.handleEdit}/>
                             </div>
 
                             <div className="td action">
