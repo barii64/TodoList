@@ -15,10 +15,8 @@
     onClick(TitleElement) {
         if (TitleElement.target.nodeName != "LABEL")
             return;
-        console.log(this._input);
 
         this._input.current.value = this._label.current.innerText;
-
 
         this._label.current.hidden = "true";
 

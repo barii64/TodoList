@@ -6,8 +6,8 @@
     }
 
     edit(todoItem) {
-        var input = this.props.input._input.current;
-        var label = input.previousSibling;
+        var input = this.props.titleField._input.current;
+        var label = this.props.titleField._label.current;
 
         if (!input.classList.contains("editing")) {
             input.classList.add("editing");
@@ -42,7 +42,6 @@
         }
     }
     render() {
-        var input = this.props.input;
         return (
             <button type="button" onClick=
                 {e => this.edit(this.props.todoItem)}

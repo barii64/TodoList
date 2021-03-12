@@ -15,7 +15,11 @@ class TableItems extends React.Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
 
-
+        axios.get("/TodoItems/Get").then(response => {
+            this.setState({
+                ToDoListData: response.data
+            });
+        });
     };
     componentDidMount() {
         axios.get("/TodoItems/Get").then(response => {
@@ -54,7 +58,7 @@ class TableItems extends React.Component {
                             </div>
 
                             <div className="td action">
-                            <EditButton todoItem={todoItem} input={this.TitleItemsRefs[index]} ref={
+                            <EditButton todoItem={todoItem} titleField={this.TitleItemsRefs[index]} ref={
                                 (editButton) => this.EditItemsRefs[index] = EditButton
                             }/>
                                 <DeleteButton id={todoItem.id} onDelete={this.handleDelete} />
