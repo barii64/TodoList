@@ -9,11 +9,13 @@ class TableItems extends React.Component {
         this.state = {
             ToDoListData: []
         }
-        axios.get("/TodoItems/Get").then(response => {
-            this.setState({
-                ToDoListData: response.data
-            });
-        });
+        this.TitleItemsRefs = [];
+        this.EditItemsRefs = [];
+
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+
+
     };
     componentDidMount() {
         axios.get("/TodoItems/Get").then(response => {
@@ -21,24 +23,18 @@ class TableItems extends React.Component {
                 ToDoListData: response.data
             });
         });
-    }
-
+    };
     handleDelete = itemId => {
         const ToDoListData = this.state.ToDoListData.filter(item => item.id !== itemId);
         this.setState({ ToDoListData: ToDoListData });
     };
+
     handleEdit = item => {
-        const elementsIndex = this.state.ToDoListData.findIndex(element => element.id == item.id)
-
-        var newItem = item;
-        newItem.isDone = !newItem.isDone;
-
-        var toDoListData = this.state.ToDoListData;
-
-        toDoListData[elementsIndex] = newItem;
-
-        this.setState({ ToDoListData: toDoListData, });
-         this.forceUpdate();
+        axios.get("/TodoItems/Get").then(response => {
+            this.setState({
+                ToDoListData: response.data
+            });
+        });
     };
 
     render() {      
@@ -49,16 +45,18 @@ class TableItems extends React.Component {
             this.state.ToDoListData.map((todoItem, index) => {
                 
                 return (<form className="tr" key={index}>
-                            <label className='labelId' >{todoItem.id}</label>
-
-                            <TitleInput todoItem={todoItem} />
+                            <TitleInput todoItem={todoItem} ref={
+                                (title) => this.TitleItemsRefs[index] = title
+                            } EditButton={this.EditItemsRefs[index]}/>
 
                             <div className="td">
                                 <CheckBoxItem todoItem={todoItem} onChangeCheckBox={this.handleEdit}/>
                             </div>
 
                             <div className="td action">
-                                <EditButton todoItem={todoItem}/>
+                            <EditButton todoItem={todoItem} input={this.TitleItemsRefs[index]} ref={
+                                (editButton) => this.EditItemsRefs[index] = EditButton
+                            }/>
                                 <DeleteButton id={todoItem.id} onDelete={this.handleDelete} />
                             </div>
                         </form>)

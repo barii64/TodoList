@@ -6,30 +6,34 @@
         this.state = {
             className: "td title" + str
         };
+        this._input = React.createRef();
+        this._label = React.createRef();
+
+        this.onClick = this.onClick.bind(this);
+
     }
-    onClick(element) {
-        if (element.target.firstChild != null) {
-            var str = element.currentTarget.innerText.trim();
-            element.currentTarget.firstChild.remove();
+    onClick(TitleElement) {
+        if (TitleElement.target.nodeName != "LABEL")
+            return;
+        console.log(this._input);
+
+        this._input.current.value = this._label.current.innerText;
 
 
-            element.currentTarget.lastChild.style.display = "inline-block";
+        this._label.current.hidden = "true";
 
-            element.currentTarget.lastChild.value = str;
+        this._input.current.style.display = "inline-block";
 
+        this._input.current.classList.add("editing")
 
-            var tr = element.currentTarget.parentElement;
-            tr.classList += (" editing");
-            jQuery(tr).find("BUTTON:nth-child(1)").text("save");
-
-            console.log(element.currentTarget.previousSibling.innerText);
-        }
+        this.props.EditButton.editButton.innerText = "save";
     }
+
     render() {
         return (
             <div className={this.state.className} onClick={this.onClick}>
-                <label>{this.props.todoItem.title}</label>
-                <input type="text" className="edit-input" />
+                <label ref={this._label}>{this.props.todoItem.title}</label>
+                <input type="text" className="edit-input" ref={this._input}/>
             </div>
 
         )

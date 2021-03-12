@@ -14,9 +14,9 @@ td:nth-of-type(3){
 tr[bgcolor="green"]{
     color: white;
 }
-    tr[bgcolor="green"] a {
+tr[bgcolor="green"] a {
         color: cyan;
-    }
+}
 .edit-input, .labelId {
     display: none;
 }

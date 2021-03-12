@@ -1,62 +1,53 @@
 ﻿class EditButton extends React.Component {
-    render() {
-        function edit(todoItem) {
-            var tr = jQuery(editButton).parent().parent();
-            if (!tr.hasClass("editing")) {
-                tr.addClass("editing");
-                tr.find("DIV.td:nth-child(even)").each(function () {
-                    var $this = jQuery(this);
-                    if (!$this.hasClass("action")) {
-                        var value = jQuery(this).text();
-                        $this.text("");
-                        $this.append('<input type="text" value="' + value + '" />');
-                    } else {
-                        editButton.innerText = "save";
-                    }
-                });
-            } else {
-                tr.removeClass("editing");
-                tr.find("DIV.td:nth-child(even)").each(function () {
-                    if (!jQuery(this).hasClass("action")) {
-                        var value = jQuery(this).find("INPUT").val();
-                        jQuery(this).find("INPUT").remove();
-                        jQuery(this).append('<label>' + value + '</label>' +
-                            '<input type="text" style="display:none;"/>');
-                    } else {
-                        jQuery(this).find("BUTTON:nth-child(1)").text("edit");
-                        console.log(
-                            this.parentElement.firstChild.firstChild.data,
-                            this.parentElement.children[1].innerText,
-                            this.parentElement.children[2].firstChild.checked
-                        );
+    constructor(props) {
+        super(props);
 
-                        fetch("/TodoItems/EditJson", {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                Id: this.parentElement.firstChild.firstChild.data,
-                                Title: this.parentElement.children[1].innerText,
-                                IsDone: todoItem.isDone
-                            })
-                        });
-                        /*location.reload();*/
-                    }
-                });
-            }
+        this.edit = this.edit.bind(this);
+    }
+
+    edit(todoItem) {
+        var input = this.props.input._input.current;
+        var label = input.previousSibling;
+
+        if (!input.classList.contains("editing")) {
+            input.classList.add("editing");
+            var labelContent = label.innerText;
+            input.value = labelContent;
+                    //$this.text("");
+                    //input._input.current.value = value
+            label.hidden = true;
+            input.hidden = false;
+            input.style.display = "block";
+            this.editButton.innerText = "save";
+        } else {
+            input.classList.remove("editing");
+            label.hidden = "";
+            this.editButton.innerText = "edit";
+            label.innerText = input.value;
+            input.style.display = "none"
+            fetch("/TodoItems/EditJson", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    Id: this.props.todoItem.id,
+                    Title: label.innerText,
+                    IsDone: this.props.todoItem.isDone
+                })
+            });
+                    /*location.reload();*/
+           
         }
-        var editButton;
+    }
+    render() {
+        var input = this.props.input;
         return (
             <button type="button" onClick=
-                {e => edit(this.props.todoItem)}
+                {e => this.edit(this.props.todoItem)}
 
-                ref={
-                    function (el) {
-                        editButton= el;
-                    }
-                }
+                ref={(el) => this.editButton = el}
 
             >edit</button>
         )
