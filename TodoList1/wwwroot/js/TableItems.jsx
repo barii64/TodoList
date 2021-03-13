@@ -13,14 +13,16 @@ class TableItems extends React.Component {
         this.EditItemsRefs = [];
 
         this.handleDelete = this.handleDelete.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
+        this.handleEdit = this.refresh.bind(this);
 
         axios.get("/TodoItems/Get").then(response => {
             this.setState({
                 ToDoListData: response.data
             });
         });
+        console.log(`Table rendered.`);
     };
+
     componentDidMount() {
         axios.get("/TodoItems/Get").then(response => {
             this.setState({
@@ -34,6 +36,20 @@ class TableItems extends React.Component {
     };
 
     handleEdit = item => {
+        const elementsIndex = this.state.ToDoListData.findIndex(element => element.id == item.id)
+
+        var newItem = item;
+        newItem.isDone = !newItem.isDone;
+
+        var toDoListData = this.state.ToDoListData;
+
+        toDoListData[elementsIndex] = newItem;
+
+        this.setState({ ToDoListData: toDoListData, });
+    };
+
+
+    refresh() {
         axios.get("/TodoItems/Get").then(response => {
             this.setState({
                 ToDoListData: response.data
@@ -41,13 +57,9 @@ class TableItems extends React.Component {
         });
     };
 
-    render() {      
-        function deleteJson(id) {
-            
-        }
+    render() {
         return (
             this.state.ToDoListData.map((todoItem, index) => {
-                
                 return (<form className="tr" key={index}>
                             <TitleInput todoItem={todoItem} ref={
                                 (title) => this.TitleItemsRefs[index] = title

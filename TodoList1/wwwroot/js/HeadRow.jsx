@@ -1,5 +1,8 @@
 ﻿import AddButton from './AddButton.jsx';
 class HeadRow extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         return (
             <div className = "thead">
@@ -7,12 +10,12 @@ class HeadRow extends React.Component {
                         <div className="td">
                             Title
                         </div>
-                        <div className="td">
+                    <div className="td" onClick={this.props.rerenderParentCallback}>
                         Done
                         </div>
                         <div className="td">
                             <div></div>
-                            <AddButton />
+                            <AddButton rerenderParentCallback={this.props.rerenderParentCallback} />
                         </div>
                 </div>
             </div>

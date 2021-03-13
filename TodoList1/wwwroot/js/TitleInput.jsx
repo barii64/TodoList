@@ -1,17 +1,14 @@
 ﻿class TitleInput extends React.Component {
     constructor(props) {
         super(props);
-        var str = this.props.todoItem.isDone ? " green" : "";
-
-        this.state = {
-            className: "td title" + str
-        };
         this._input = React.createRef();
         this._label = React.createRef();
 
         this.onClick = this.onClick.bind(this);
 
     }
+
+
     onClick(TitleElement) {
         if (TitleElement.target.nodeName != "LABEL")
             return;
@@ -28,8 +25,9 @@
     }
 
     render() {
+        var str = this.props.todoItem.isDone ? "td title green" : "td title";
         return (
-            <div className={this.state.className} onClick={this.onClick}>
+            <div className={str} onClick={this.onClick}>
                 <label ref={this._label}>{this.props.todoItem.title}</label>
                 <input type="text" className="edit-input" ref={this._input}/>
             </div>

@@ -2,7 +2,7 @@
     display: none;
 }
 .visible {
-    display: contents;
+    display: block;
 }
 #createInput {
     width: -webkit-fill-available;

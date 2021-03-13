@@ -70,6 +70,17 @@ namespace TodoList1.Controllers
             }
             return View(todoItem);
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateJson([FromBody] TodoItem todoItem)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(todoItem);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(todoItem);
+        }
 
         //GET: TodoItems/Edit/5
         public async Task<IActionResult> Edit(int? id)
