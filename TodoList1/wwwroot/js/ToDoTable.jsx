@@ -8,11 +8,6 @@ class ToDoTable extends React.Component {
         this.state = {
             ToDoListData: []
         }
-        axios.get("https://localhost:44329/TodoItems/Get").then(response => {
-            this.setState({
-                ToDoListData: response.data
-            });
-        });
         this.getToDoItems = this.getToDoItems.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
@@ -20,7 +15,7 @@ class ToDoTable extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("https://localhost:44329/TodoItems/Get").then(response => {
+        axios.get("/TodoItems/Get").then(response => {
             this.setState({
                 ToDoListData: response.data
             });
@@ -29,7 +24,7 @@ class ToDoTable extends React.Component {
 
 
     getToDoItems() {
-        axios.get("https://localhost:44329/TodoItems/Get").then(response => {
+        axios.get("/TodoItems/Get").then(response => {
             this.setState({
                 ToDoListData: response.data
             });

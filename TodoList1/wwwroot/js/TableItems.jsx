@@ -13,49 +13,33 @@ class TableItems extends React.Component {
 
         this.createTasks = this.createTasks.bind(this);
     };
-
     createTasks(item, index) {
         return (
-            <>
+            <form className="tr" key={index}>
                 <TitleInput todoItem={item} ref={
                     (title) => this.TitleItemsRefs[index] = title}
-                    EditButton={this.EditItemsRefs[index]} />,
+                    EditButton={this.EditItemsRefs[index]} />
 
                 <div className="td">
                     <CheckBoxItem todoItem={item} onChangeCheckBox={this.props.handleEdit} />
-                </div>,
+                </div>
 
                 <div className="td action">
                     <EditButton todoItem={item} titleField={this.TitleItemsRefs[index]} ref={
                         (editButton) => this.EditItemsRefs[index] = EditButton
                     } />
                     <DeleteButton id={item.id} onDelete={this.props.handleDelete} />
-                </div>,
-            </>
+                </div>
+            </form>
         )
     }
 
     render() {
         var todoEntries = this.props.ToDoListData;
+        var listItems = todoEntries.map(this.createTasks);
 
-        toDoListData.map((todoItem, index) => {
-            return (<form className="tr" key={index}>
-                <TitleInput todoItem={todoItem} ref={
-                    (title) => this.TitleItemsRefs[index] = title
-                } EditButton={this.EditItemsRefs[index]} />
 
-                <div className="td">
-                    <CheckBoxItem todoItem={todoItem} onChangeCheckBox={this.handleEdit} />
-                </div>
-
-                <div className="td action">
-                    <EditButton todoItem={todoItem} titleField={this.TitleItemsRefs[index]} ref={
-                        (editButton) => this.EditItemsRefs[index] = EditButton
-                    } />
-                    <DeleteButton id={todoItem.id} onDelete={this.handleDelete} />
-                </div>
-            </form>)
-        })
+        return (<>{ listItems }</>)
     }
 }
 
