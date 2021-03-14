@@ -3,17 +3,19 @@ import TableItems from './TableItems.jsx';
 import AddButton from './AddButton.jsx';
 
 class BodyTable extends React.Component {
-    constructor(){
-        super();
-        this.child = React.createRef();
+    constructor(props) {
+        super(props);
+        this.createTasks = this.createTasks.bind(this);
     }
 
     render() {
-        console.log(`BodyTable rendered.`);
+        var todoEntries = this.props.ToDoListData;
+        var listItems = todoEntries.map(this.createTasks);
+
             return (
                 <div className="tbody">
                     <div></div>
-                    <TableItems ref={this.child}/>
+                    <TableItems ToDoListData={this.props.ToDoListData}/>
                 </div>
             )
     }
