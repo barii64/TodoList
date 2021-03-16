@@ -1,42 +1,33 @@
-﻿import DeleteButton from './DeleteButton.jsx';
-import CheckBoxItem from './CheckBoxItem.jsx';
-import TitleInput from './TitleInput.jsx';
-import EditButton from './EditButton.jsx';
+﻿//import DeleteButton from './DeleteButton.jsx';
+//import CheckBoxItem from './CheckBoxItem.jsx';
+//import TitleInput from './TitleInput.jsx';
+//import EditButton from './EditButton.jsx';
+import LineElement from './LineElement.jsx';
 
 class TableItems extends React.Component {
     constructor() {
         super();
 
-        this.TitleItemsRefs = [];
-        this.EditItemsRefs = [];
-
-
         this.createTasks = this.createTasks.bind(this);
     };
+
     createTasks(item, index) {
         return (
-            <form className="tr" key={index}>
-                <TitleInput todoItem={item} ref={
-                    (title) => this.TitleItemsRefs[index] = title}
-                    EditButton={this.EditItemsRefs[index]} />
-
-                <div className="td">
-                    <CheckBoxItem todoItem={item} onChangeCheckBox={this.props.handleEdit} />
-                </div>
-
-                <div className="td action">
-                    <EditButton todoItem={item} titleField={this.TitleItemsRefs[index]} ref={
-                        (editButton) => this.EditItemsRefs[index] = EditButton
-                    } />
-                    <DeleteButton id={item.id} onDelete={this.props.handleDelete} />
-                </div>
-            </form>
+            <LineElement rerenderParentCallback={this.props.rerenderParentCallback} item={item} index={index}/>
         )
     }
+    //refUpdate(item, index) {
+    //    return (<>
+    //                <TitleInput todoItem={item} ref={(title) => this.TitleItemsRefs[index] = title}/>
+    //                <EditButton todoItem={item} ref={(editButton) => this.EditItemsRefs[index] = editButton}/>
+    //            </>)
+    //}
+
 
     render() {
-        var todoEntries = this.props.ToDoListData;
-        var listItems = todoEntries.map(this.createTasks);
+       // var todoEntries = this.props.ToDoListData;
+        var listItems = this.props.ToDoListData.map(this.createTasks);
+       // console.log(asd);
 
 
         return (<>{ listItems }</>)

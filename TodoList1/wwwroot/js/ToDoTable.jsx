@@ -9,8 +9,6 @@ class ToDoTable extends React.Component {
             ToDoListData: []
         }
         this.getToDoItems = this.getToDoItems.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
 
     }
 
@@ -20,6 +18,7 @@ class ToDoTable extends React.Component {
                 ToDoListData: response.data
             });
         });
+        console.log(this.state.ToDoListData)
     }
 
 
@@ -31,23 +30,7 @@ class ToDoTable extends React.Component {
         });
     };
 
-    handleDelete = itemId => {
-        const ToDoListData = this.state.ToDoListData.filter(item => item.id !== itemId);
-        this.setState({ ToDoListData: ToDoListData });
-    };
 
-    handleEdit = item => {
-        const elementsIndex = this.state.ToDoListData.findIndex(element => element.id == item.id)
-
-        var newItem = item;
-        newItem.isDone = !newItem.isDone;
-
-        var toDoListData = this.state.ToDoListData;
-
-        toDoListData[elementsIndex] = newItem;
-
-        this.setState({ ToDoListData: toDoListData, });
-    };
 
     render() {
         return (
@@ -55,7 +38,7 @@ class ToDoTable extends React.Component {
                 <HeadRow rerenderParentCallback={this.getToDoItems} />
                 <div className="tbody">
                     <div></div>
-                    <TableItems ToDoListData={this.state.ToDoListData} handleDelete={this.handleDelete} handleEdit={this.handleEdit} />
+                    <TableItems rerenderParentCallback={this.getToDoItems} ToDoListData={this.state.ToDoListData} handleDelete={this.handleDelete} handleEdit={this.handleEdit} />
                 </div>
             </div>
         )
