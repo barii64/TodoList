@@ -6,8 +6,8 @@
     }
 
     edit(todoItem) {
-        var input = this.props.titleField.current._input.current;
-        var label = this.props.titleField.current._label.current;
+        var input = this.props.titleField._input.current;
+        var label = this.props.titleField._label.current;
 
         if (!input.classList.contains("editing")) {
             input.classList.add("editing");

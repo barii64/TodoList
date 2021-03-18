@@ -21,7 +21,7 @@
 
         this._input.current.classList.add("editing")
 
-        this.props.EditButton.current.editButton.innerText = "save";
+        this.props.EditButton.editButton.innerText = "save";
     }
 
     render() {

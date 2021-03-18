@@ -22,7 +22,7 @@
             onClick={() =>
             {
                 this.editCheckbox(this.props.todoItem);
-                this.props.onChangeIsDone();
+                this.props.onChangeCheckBox(this.props.todoItem);
 
             }}/>
         )
