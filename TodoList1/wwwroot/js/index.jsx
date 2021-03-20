@@ -9,6 +9,8 @@ var destination = document.getElementById('root');
 var store = createStore(todoList);
 store.subscribe(() => console.log(store.getState()));
 
+
+
 ReactDOM.render(
     <Provider store={store}>
         <App />

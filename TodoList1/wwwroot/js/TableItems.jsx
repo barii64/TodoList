@@ -25,13 +25,15 @@ class TableItems extends React.Component {
 
 
     render() {
-        // var todoEntries = this.props.ToDoListData;
-        var listItems = this.props.TodoItemsValue;
-        //console.log(asd);
-
-        listItems.map(this.createTasks);
-        // console.log(asd);
-
+        if (this.props.ToDoListData.length == 0) {
+            this.props.rerenderParentCallback();
+        }
+        else {
+            // var todoEntries = this.props.ToDoListData;
+            var listItems = this.props.ToDoListData.map(this.createTasks);
+            //console.log(asd);
+            // console.log(asd);
+        }
 
         return (<>{listItems}</>)
     }

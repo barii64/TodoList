@@ -1,4 +1,9 @@
-﻿export default (state = [], action) => {
+﻿const defaultState = {
+    TodoListElems: []
+}
+
+
+export default (state = defaultState, action) => {
     switch (action.type) {
         case "get":
             return {
@@ -14,3 +19,4 @@
             return state;
     }
 }
+
