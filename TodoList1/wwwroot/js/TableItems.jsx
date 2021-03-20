@@ -58,9 +58,12 @@ class TableItems extends React.Component {
     };
 
     render() {
-       // var todoEntries = this.props.ToDoListData;
-        var listItems = this.props.ToDoListData.map(this.createTasks);
-       // console.log(asd);
+        return (
+            this.state.ToDoListData.map((todoItem, index) => {
+                return (<form className="tr" key={index}>
+                            <TitleInput todoItem={todoItem} ref={
+                                (title) => this.TitleItemsRefs[index] = title
+                            } EditButton={this.EditItemsRefs[index]}/>
 
                             <div className="td">
                                 <CheckBoxItem todoItem={todoItem} onChangeCheckBox={this.handleEdit}/>

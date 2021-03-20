@@ -1,42 +1,14 @@
-﻿import ToDoTable from './ToDoTable.jsx';
-const {  connect } = ReactRedux;
+﻿import AddButton from './AddButton.jsx';
+import ToDoTable from './ToDoTable.jsx';
 
-function mapStateToProps(state) {
-    return {
-        TodoItemsValue: state.TodoListElems,
-    };
-}
+class App extends React.Component {
+    render() {
+        return (
+            <div>
+                <ToDoTable/>
+            </div>
+        )
 
-var addAction = { type: "add" };
-var deleteAction = { type: "delete" };
-var getAction = { type: "get" };
-
-function mapDispatchToProps(dispatch) {
-    return {
-        getTodoItems: function () {
-            return fetch("/TodoItems/Get", {
-                method: "get"
-            }).then(res => res.json())
-              .then(response => {
-                    dispatch({ type: "get", items: response });
-                });
-
-
-        },
-        addTodoItem: function () {
-            return dispatch(addAction);
-        },
-        deleteTodoItem: function () {
-            return dispatch(deleteAction);
-        }
-    };
-}
-
-var connectedComponent = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ToDoTable);
-
-
-export default connectedComponent;
-
+    }
+    }
+ReactDOM.render(<App />, document.getElementById('root'));
