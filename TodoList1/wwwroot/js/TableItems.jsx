@@ -13,7 +13,7 @@ class TableItems extends React.Component {
 
     createTasks(item, index) {
         return (
-            <LineElement rerenderParentCallback={this.props.rerenderParentCallback} item={item} index={index}/>
+            <LineElement rerenderParentCallback={this.props.rerenderParentCallback} item={item} index={index} />
         )
     }
     //refUpdate(item, index) {
@@ -25,12 +25,15 @@ class TableItems extends React.Component {
 
 
     render() {
-       // var todoEntries = this.props.ToDoListData;
-        var listItems = this.props.ToDoListData.map(this.createTasks);
-       // console.log(asd);
+        // var todoEntries = this.props.ToDoListData;
+        var listItems = this.props.TodoItemsValue;
+        //console.log(asd);
+
+        listItems.map(this.createTasks);
+        // console.log(asd);
 
 
-        return (<>{ listItems }</>)
+        return (<>{listItems}</>)
     }
 }
 

@@ -2,46 +2,27 @@
 import TableItems from './TableItems.jsx';
 
 class ToDoTable extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            ToDoListData: []
-        }
-        this.getToDoItems = this.getToDoItems.bind(this);
-
-    }
-
     componentDidMount() {
-        axios.get("/TodoItems/Get").then(response => {
-            this.setState({
-                ToDoListData: response.data
-            });
-        });
-        console.log(this.state.ToDoListData)
+        console.log('did mount');
+        this.props.getToDoItems();
     }
-
-
     getToDoItems() {
-        axios.get("/TodoItems/Get").then(response => {
-            this.setState({
-                ToDoListData: response.data
-            });
-        });
-    };
-
-
-
+        this.props.getToDoItems();
+    }
     render() {
+        console.log(this.props.getTodoItems());
+        console.log(this.props.TodoItemsValue);
+        console.log(this.props.TodoListElems);
         return (
-            <div className = "table">
+            <div className="table">
                 <HeadRow rerenderParentCallback={this.getToDoItems} />
                 <div className="tbody">
                     <div></div>
-                    <TableItems rerenderParentCallback={this.getToDoItems} ToDoListData={this.state.ToDoListData} handleDelete={this.handleDelete} handleEdit={this.handleEdit} />
+                    <TableItems rerenderParentCallback={this.props.getTodoItems} ToDoListData={this.props.TodoListElems} />
                 </div>
             </div>
         )
+
     }
 }
 export default ToDoTable;
