@@ -16,6 +16,8 @@ using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
 
 using TodoList1.Data;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace TodoList1
 {
@@ -81,6 +83,15 @@ namespace TodoList1
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            app.UseFileServer(new FileServerOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "node_modules")
+                ),
+                RequestPath = "/node_modules",
+                EnableDirectoryBrowsing = false
+            });
+
         }
     }
 }
