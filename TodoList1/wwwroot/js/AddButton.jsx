@@ -25,7 +25,7 @@ class AddButton extends React.Component {
         }
         else {
             return ReactDOM.createPortal(
-                <CreateBlock ref={this.createBlockElement} rerenderParentCallback={this.props.rerenderParentCallback} />,
+                <CreateBlock ref={this.createBlockElement} rerenderParentCallback={this.props.rerenderParentCallback} addTodoItem={this.props.addTodoItem}  />,
                 document.querySelector(".tbody > div"));
         }
     }

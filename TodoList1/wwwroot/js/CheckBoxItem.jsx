@@ -15,6 +15,8 @@
                 IsDone: !todoItem.isDone
             })
         });
+        this.props.onChangeIsDone();
+
     }
     render() {
         return (
@@ -22,7 +24,6 @@
             onClick={() =>
             {
                 this.editCheckbox(this.props.todoItem);
-                this.props.onChangeIsDone();
 
             }}/>
         )

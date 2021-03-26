@@ -15,7 +15,7 @@ class HeadRow extends React.Component {
                         </div>
                         <div className="td">
                             <div></div>
-                            <AddButton rerenderParentCallback={this.props.rerenderParentCallback} />
+                        <AddButton rerenderParentCallback={this.props.rerenderParentCallback} addTodoItem={this.props.addTodoItem}  />
                         </div>
                 </div>
             </div>

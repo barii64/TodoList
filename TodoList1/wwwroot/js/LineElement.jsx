@@ -3,6 +3,7 @@ import EditButton from './EditButton.jsx';
 import CheckBoxItem from './CheckBoxItem.jsx';
 import DeleteButton from './DeleteButton.jsx';
 
+
 class LineElement extends React.Component {
     constructor() {
         super();
@@ -15,15 +16,11 @@ class LineElement extends React.Component {
         this._TitleInput = React.createRef();
         this._EditInput = React.createRef();
 
-        this.handleDelete = this.handleDelete.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
         this.handleIsDone = this.handleIsDone.bind(this);
     }
 
 
-    handleDelete = itemId => {
-        this.setState({ hidden: true });
-    };
 
     handleEdit = item => {
         this.setState({ isEditing: !this.state.isEditing });
@@ -45,7 +42,7 @@ class LineElement extends React.Component {
 
                     <div className="td action">
                         <EditButton todoItem={this.props.item} ref={this._EditInput} titleField={this._TitleInput}/>
-                        <DeleteButton id={this.props.item.id} onDelete={this.handleDelete} />
+                        <DeleteButton id={this.props.item.id}/>
                     </div>
                 </form>
                 )

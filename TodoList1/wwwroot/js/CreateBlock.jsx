@@ -24,18 +24,8 @@ class CreateBlock extends React.Component {
     }
 
     create = (e) => {
-        fetch("/TodoItems/CreateJson", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify({
-                Title: this.title.current.value,
-                IsDone: this.isDone.current.checked
-            })
-        });
-        e.preventDefault();
+        this.props.addTodoItem(this.title.current.value, this.isDone.current.checked);
+        
         this.props.rerenderParentCallback();
     };
 
@@ -49,13 +39,13 @@ class CreateBlock extends React.Component {
                         </div>
                         <div className="td" ><input id="IsDone" type="checkbox" name="IsDone" ref={this.isDone} /></div>
                         <div className="td">
-                            <input type="submit" value="Create" className="btn btn-success" onClick={(e) => { this.toggle(); this.create(e);  }} />
+                            <input type="button" value="Create" className="btn btn-success" onClick={(e) => { this.toggle(); this.create(e);  }} />
                             <input id="cancelButton" type="button" value="Сancel" className="btn btn-danger" onClick={() => { this.toggle(); }} />
                         </div>
                     </form >
                 </>);
         }
-        return ReactDOM.createPortal(<AddButton rerenderParentCallback={this.props.rerenderParentCallback}/>,
+        return ReactDOM.createPortal(<AddButton rerenderParentCallback={this.props.rerenderParentCallback} addTodoItem={this.props.addTodoItem}/>,
             document.querySelector(".thead .tr .td:nth-of-type(3) div"));
     }
 }

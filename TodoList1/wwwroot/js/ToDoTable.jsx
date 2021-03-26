@@ -2,21 +2,20 @@
 import TableItems from './TableItems.jsx';
 
 class ToDoTable extends React.Component {
-
-    getToDoItems() {
-        this.props.getToDoItems();
+    componentDidMount() {
+        this.props.getTodoItems();
     }
     render() {
         return (
             <div className="table">
-                <HeadRow rerenderParentCallback={this.getToDoItems} />
+                <HeadRow rerenderParentCallback={this.props.getTodoItems} addTodoItem={this.props.addTodoItem} />
                 <div className="tbody">
                     <div></div>
-                    <TableItems rerenderParentCallback={this.props.getTodoItems} ToDoListData={this.props.TodoItemsValue} />
+                    <TableItems rerenderParentCallback={this.props.getTodoItems} ToDoListData={this.props.TodoItemsValue} deleteTodoItem={this.props.deleteTodoItem} />
                 </div>
             </div>
         )
-
     }
 }
+
 export default ToDoTable;

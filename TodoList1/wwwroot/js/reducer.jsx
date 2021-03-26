@@ -5,15 +5,15 @@
 
 export default (state = defaultState, action) => {
     switch (action.type) {
-        case "get":
+        case "GET":
             return {
                 ...state,
                 TodoListElems: action.items
             }
-        case "FETCH_FAILD":
+        case "DELETE":
             return {
                 ...state,
-                TodoListElems: []
+                TodoListElems: state.TodoListElems.filter(item => item.id !== action.items)
             }
         default:
             return state;
