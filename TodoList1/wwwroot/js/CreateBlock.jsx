@@ -1,4 +1,23 @@
 ﻿import AddButton from './AddButton.jsx';
+const { connect } = ReactRedux;
+
+function mapDispatchToProps(dispatch) {
+    return {
+        addTodoItem: function (title, checkbox) {
+            fetch("/TodoItems/CreateJson", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    Title: title,
+                    IsDone: checkbox
+                })
+            });
+        }
+    };
+}
 
 class CreateBlock extends React.Component {
     constructor(props) {
@@ -50,4 +69,4 @@ class CreateBlock extends React.Component {
     }
 }
 
-export default CreateBlock;
+export default connect(mapDispatchToProps)(CreateBlock);

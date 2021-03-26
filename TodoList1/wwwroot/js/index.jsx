@@ -1,6 +1,5 @@
 ﻿import ToDoTable from './ToDoTable.jsx';
 import todoList from "./reducer.jsx"
-import App from "./App.jsx"
 const { createStore } = Redux;
 const { Provider, connect } = ReactRedux;
 
@@ -13,7 +12,7 @@ store.subscribe(() => console.log(store.getState()));
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <ToDoTable />
     </Provider>,
     destination
 );

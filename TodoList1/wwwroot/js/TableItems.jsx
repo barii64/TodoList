@@ -16,12 +16,6 @@ class TableItems extends React.Component {
             <LineElement rerenderParentCallback={this.props.rerenderParentCallback} item={item} index={index} />
         )
     }
-    //refUpdate(item, index) {
-    //    return (<>
-    //                <TitleInput todoItem={item} ref={(title) => this.TitleItemsRefs[index] = title}/>
-    //                <EditButton todoItem={item} ref={(editButton) => this.EditItemsRefs[index] = editButton}/>
-    //            </>)
-    //}
 
 
     render() {
@@ -29,10 +23,7 @@ class TableItems extends React.Component {
             this.props.rerenderParentCallback();
         }
         else {
-            // var todoEntries = this.props.ToDoListData;
             var listItems = this.props.ToDoListData.map(this.createTasks);
-            //console.log(asd);
-            // console.log(asd);
         }
 
         return (<>{listItems}</>)
