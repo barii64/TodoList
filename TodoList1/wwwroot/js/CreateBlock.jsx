@@ -1,5 +1,12 @@
-﻿import AddButton from './AddButton.tsx';
+﻿import AddButton from './AddButton.jsx';
 const { connect } = ReactRedux;
+
+
+function mapStateToProps(state) {
+    return {
+        hiddenAddButton: state.hiddenAddButton,
+    };
+}
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -15,41 +22,26 @@ function mapDispatchToProps(dispatch) {
                     IsDone: checkbox
                 })
             });
+        },
+        hideAddButton() {
+            dispatch({ type: hideAddButtonAction.type })
         }
     };
 }
+var hideAddButtonAction = { type: "HIDEADDBUTTON" };
 
 class CreateBlock extends React.Component {
     constructor(props) {
         super(props);
   
-        this.state = {
-            hidden: false
-        };
-
         this.id = React.createRef();
         this.title = React.createRef();
         this.isDone = React.createRef();
 
-        this.toggle = this.toggle.bind(this);
-        this.create = this.create.bind(this);
-
     }
-
-    toggle = () => {
-        this.setState({
-            hidden: !this.hidden
-        });
-    }
-
-    create = (e) => {
-        this.props.addTodoItem(this.title.current.value, this.isDone.current.checked);
-        
-        this.props.rerenderParentCallback();
-    };
 
     render() {
-        if (!this.state.hidden) {
+        if (this.props.hiddenAddButton) {
             return (
                 <>
                     <form className="tr" id="CreateBlock">
@@ -58,15 +50,19 @@ class CreateBlock extends React.Component {
                         </div>
                         <div className="td" ><input id="IsDone" type="checkbox" name="IsDone" ref={this.isDone} /></div>
                         <div className="td">
-                            <input type="button" value="Create" className="btn btn-success" onClick={(e) => { this.toggle(); this.create(e);  }} />
-                            <input id="cancelButton" type="button" value="Сancel" className="btn btn-danger" onClick={() => { this.toggle(); }} />
+                            <input type="button" value="Create" className="btn btn-success" onClick={
+                                (e) => {
+                                    this.props.hideAddButton();
+                                    this.props.addTodoItem(this.title.current.value, this.isDone.current.checked);
+                                }} />
+                            <input id="cancelButton" type="button" value="Сancel" className="btn btn-danger" onClick={() => { this.props.hideAddButton(); }} />
                         </div>
                     </form >
                 </>);
         }
-        return ReactDOM.createPortal(<AddButton rerenderParentCallback={this.props.rerenderParentCallback} addTodoItem={this.props.addTodoItem}/>,
+        return ReactDOM.createPortal(<AddButton/>,
             document.querySelector(".thead .tr .td:nth-of-type(3) div"));
     }
 }
 
-export default connect(mapDispatchToProps)(CreateBlock);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateBlock);

@@ -1,41 +1,12 @@
 ﻿import CreateBlock from './CreateBlock.jsx';
 
-class AddButton extends React.Component {
-    constructor() {
-        super();
-        this.state = { hiddenButton: false };
-        this.showCreateBlock = this.showCreateBlock.bind(this);
-        this.createBlockElement = React.createRef();
-    };
-    showCreateBlock() {
-        this.state.hiddenButton = !this.state.hiddenButton;
-        this.forceUpdate();
-        //document.getElementById("AddItemButton").style.display = "none";
-    };
-    render() {
-        if (!this.state.hiddenButton) {
-            return (
-                <form>
-                    <input id="AddItemButton" type="input" value="Add"
-                        className="btn btn-primary" onClick={() => {
-                            this.showCreateBlock();
-                        }} />
-                </form>
-            )
-        }
-        else {
-            return ReactDOM.createPortal(
-                <CreateBlock ref={this.createBlockElement} rerenderParentCallback={this.props.rerenderParentCallback} addTodoItem={this.props.addTodoItem}  />,
-                document.querySelector(".tbody > div"));
-        }
-    }
-}
-function mapStateToProps(hiddenButton) {
-    return {
-        hiddenButton: state.hiddenButton,
-    };
-}
+const { connect } = ReactRedux;
 
+function mapStateToProps(state) {
+    return {
+        hiddenAddButton: state.hiddenAddButton,
+    };
+}
 function mapDispatchToProps(dispatch) {
     return {
         addTodoItem: function (title, checkbox) {
@@ -54,11 +25,51 @@ function mapDispatchToProps(dispatch) {
                 method: "GET"
             }).then(res => res.json())
                 .then(response => {
-                    dispatch({ type: actionTypes.GET_TODOITEMS, items: response });
+                    dispatch({ type: "GET", items: response });
                 });
+        },
+        hideAddButton() {
+            dispatch({ type: hideAddButtonAction.type })
         }
     }
 }
+
+var hideAddButtonAction = { type: "HIDEADDBUTTON" };
+
+class AddButton extends React.Component {
+    constructor() {
+        super();
+
+        this.showCreateBlock = this.showCreateBlock.bind(this);
+        this.createBlockElement = React.createRef();
+    };
+    showCreateBlock() {
+
+        
+
+        this.forceUpdate();
+        //document.getElementById("AddItemButton").style.display = "none";
+    };
+    render() {
+        if (!this.props.hiddenAddButton) {
+            return (
+                <form>
+                    <input id="AddItemButton" type="input" value="Add"
+                        className="btn btn-primary" onClick={() => {
+                            this.props.hideAddButton(); 
+                        }} />
+                </form>
+            )
+        }
+        else {
+            return ReactDOM.createPortal(
+                <CreateBlock ref={this.createBlockElement}/>,
+                document.querySelector(".tbody > div"));
+        }
+    }
+}
+
+
 var connectedComponent = connect(
     mapStateToProps,
     mapDispatchToProps

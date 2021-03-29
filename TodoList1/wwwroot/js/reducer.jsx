@@ -1,4 +1,5 @@
 ﻿const defaultState = {
+    hiddenAddButton: false,
     TodoListElems: []
 }
 
@@ -14,6 +15,11 @@ export default (state = defaultState, action) => {
             return {
                 ...state,
                 TodoListElems: state.TodoListElems.filter(item => item.id !== action.items)
+            }
+        case "HIDEADDBUTTON":
+            return {
+                ...state,
+                hiddenAddButton: !state.hiddenAddButton
             }
         default:
             return state;

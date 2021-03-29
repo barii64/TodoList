@@ -3,6 +3,32 @@
 //import TitleInput from './TitleInput.jsx';
 //import EditButton from './EditButton.jsx';
 import LineElement from './LineElement.jsx';
+const { connect } = ReactRedux;
+
+
+function mapStateToProps(state) {
+    return {
+        TodoItemsValue: state.TodoListElems,
+    };
+}
+
+
+var getAction = { type: "GET" };
+
+
+function mapDispatchToProps(dispatch) {
+    return {
+        getTodoItems: function () {
+            return fetch("/TodoItems/Get", {
+                method: "GET"
+            }).then(res => res.json())
+                .then(response => {
+                    dispatch({ type: getAction.type, items: response });
+                });
+        },
+
+    };
+}
 
 class TableItems extends React.Component {
     constructor() {
@@ -10,25 +36,27 @@ class TableItems extends React.Component {
 
         this.createTasks = this.createTasks.bind(this);
     };
-
+    componentDidMount() {
+        this.props.getTodoItems();
+    }
     createTasks(item, index) {
         return (
-            <LineElement rerenderParentCallback={this.props.rerenderParentCallback} item={item} index={index} />
+            <LineElement item={item} index={index} />
         )
     }
 
 
     render() {
-        if (this.props.ToDoListData.length == 0) {
-            this.props.rerenderParentCallback();
-        }
-        else {
-            var listItems = this.props.ToDoListData.map(this.createTasks);
-        }
+        var listItems = this.props.TodoItemsValue.map(this.createTasks);
 
         return (<>{listItems}</>)
     }
 }
+var connectedComponent = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TableItems);
 
-export default TableItems;
+
+export default connectedComponent;
 

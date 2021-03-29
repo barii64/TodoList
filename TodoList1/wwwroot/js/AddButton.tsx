@@ -6,7 +6,7 @@ import * as actionTypes from "./actionTypes"
 
 import CreateBlock from './CreateBlock.jsx';
 
-const { connect } = _ReduxReact;
+
 
 declare global {
     const React: typeof _React; // the React types _also_ exported by the React namespace, but export them again here just in case.
@@ -54,44 +54,10 @@ class AddButton extends React.Component<MyComponentProps, MyComponentState> {
         }
         else {
             return ReactDOM.createPortal(
-                <CreateBlock ref={this.createBlockElement} rerenderParentCallback={this.props.rerenderParentCallback} addTodoItem={this.props.addTodoItem}  />,
+                <CreateBlock ref={this.createBlockElement}/>,
                 document.querySelector(".tbody > div"));
         }
     }
 }
 
-function mapStateToProps(state: { hiddenButton: boolean; }) {
-    return {
-        hiddenButton: state.hiddenButton,
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        addTodoItem: function (title: string, checkbox: boolean) {
-            fetch("/TodoItems/CreateJson", {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                    Title: title,
-                    IsDone: checkbox
-                })
-            });
-            return fetch("/TodoItems/Get", {
-                method: "GET"
-            }).then(res => res.json())
-                .then(response => {
-                    dispatch({ type: actionTypes.GET_TODOITEMS, items: response });
-                });
-        }
-    }
-}
-var connectedComponent = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AddButton);
-
-    export default connectedComponent;
+export default AddButton;

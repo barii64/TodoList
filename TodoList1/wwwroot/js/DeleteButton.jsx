@@ -1,6 +1,5 @@
 ﻿const { connect } = ReactRedux;
 
-
 var deleteAction = { type: "DELETE" };
 
 function mapDispatchToProps(dispatch) {

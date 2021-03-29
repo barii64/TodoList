@@ -11,7 +11,8 @@
         "sourceMap": true,
         "moduleResolution": "node",
         "target": "es5",
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true
     },
     "test": "/\\.(ts|tsx)$/",
     "include": [ "wwwroot/js" ],
