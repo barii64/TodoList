@@ -1,4 +1,4 @@
-﻿import AddButton from './AddButton.jsx';
+﻿import AddButton from './AddButton.tsx';
 const { connect } = ReactRedux;
 
 function mapDispatchToProps(dispatch) {

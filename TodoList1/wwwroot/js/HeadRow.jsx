@@ -1,4 +1,4 @@
-﻿import AddButton from './AddButton.jsx';
+﻿import AddButton from './AddButton.tsx';
 class HeadRow extends React.Component {
     constructor(props) {
         super(props);
@@ -14,8 +14,8 @@ class HeadRow extends React.Component {
                         Done
                         </div>
                         <div className="td">
-                            <div></div>
-                        <AddButton rerenderParentCallback={this.props.rerenderParentCallback} addTodoItem={this.props.addTodoItem}  />
+                        <div></div>
+                        <AddButton rerenderParentCallback={this.props.rerenderParentCallback} addTodoItem={this.props.addTodoItem} />
                         </div>
                 </div>
             </div>

@@ -1,0 +1,23 @@
+{
+    "compileOnSave": true,
+
+    "compilerOptions": {
+        "jsx": "preserve",
+        "allowJs": true,
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noEmitOnError": true,
+        "removeComments": false,
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "target": "es5",
+        "allowSyntheticDefaultImports": true
+    },
+    "test": "/\\.(ts|tsx)$/",
+    "include": [ "wwwroot/js" ],
+    "use": [
+        {
+            "loader": "require.resolve('ts-loader')"
+        }
+    ]
+}
