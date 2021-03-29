@@ -30,7 +30,38 @@ class AddButton extends React.Component {
         }
     }
 }
+function mapStateToProps(hiddenButton) {
+    return {
+        hiddenButton: state.hiddenButton,
+    };
+}
 
+function mapDispatchToProps(dispatch) {
+    return {
+        addTodoItem: function (title, checkbox) {
+            fetch("/TodoItems/CreateJson", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    Title: title,
+                    IsDone: checkbox
+                })
+            });
+            return fetch("/TodoItems/Get", {
+                method: "GET"
+            }).then(res => res.json())
+                .then(response => {
+                    dispatch({ type: actionTypes.GET_TODOITEMS, items: response });
+                });
+        }
+    }
+}
+var connectedComponent = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AddButton);
 
-
-export default AddButton;
+export default connectedComponent;
