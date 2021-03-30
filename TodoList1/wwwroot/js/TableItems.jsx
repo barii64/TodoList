@@ -41,7 +41,7 @@ class TableItems extends React.Component {
     }
     createTasks(item, index) {
         return (
-            <LineElement item={item} index={index} />
+            <LineElement item={item} index={index} key={index} />
         )
     }
 

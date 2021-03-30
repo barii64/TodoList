@@ -21,7 +21,7 @@
     render() {
         return (
             <input type="checkbox" checked={this.props.todoItem.isDone}
-            onClick={() =>
+            onChange={() =>
             {
                 this.editCheckbox(this.props.todoItem);
 

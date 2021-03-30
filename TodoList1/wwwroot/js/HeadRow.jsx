@@ -1,4 +1,4 @@
-﻿import AddButton from './AddButton.jsx';
+﻿import AddButton from './AddButton.tsx';
 class HeadRow extends React.Component {
     constructor(props) {
         super(props);

@@ -33,7 +33,7 @@ class LineElement extends React.Component {
     render() {
         if (!this.state.hidden) {
             return (
-                <form className="tr" >
+                <form className="tr">
                     <TitleInput todoItem={this.props.item} ref={this._TitleInput} EditButton={this._EditInput} />
 
                     <div className="td">

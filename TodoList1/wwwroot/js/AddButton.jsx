@@ -54,7 +54,7 @@ class AddButton extends React.Component {
         if (!this.props.hiddenAddButton) {
             return (
                 <form>
-                    <input id="AddItemButton" type="input" value="Add"
+                    <input id="AddItemButton" type="input" defaultValue="Add"
                         className="btn btn-primary" onClick={() => {
                             this.props.hideAddButton(); 
                         }} />
